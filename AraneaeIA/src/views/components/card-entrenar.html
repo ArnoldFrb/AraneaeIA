@@ -1,21 +1,18 @@
 {% load static %}
-<style>
-	.hidden {
-		display: none;
-	}
-	.img-6 {
-		width: 100%;
-	}
-</style>
-<form class="text-center" action="/entrenar" method="POST" enctype="multipart/form-data">
+<form
+	method="POST"
+	action="/entrenar"
+	class="text-center"
+	enctype="multipart/form-data"
+>
 	{% csrf_token %}
 	<div
-		class="modal fade"
-		id="modalEntrenar"
 		tabindex="-1"
 		role="dialog"
-		aria-labelledby="exampleModalLabel"
+		id="modalEntrenar"
+		class="modal fade"
 		aria-hidden="true"
+		aria-labelledby="exampleModalLabel"
 	>
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
@@ -34,19 +31,19 @@
 					<div class="row">
 						<div class="col-12">
 							<input
+								required
 								type="file"
-								name="archivo_entrenar"
 								class="hidden"
 								id="upload-img"
+								name="archivo_entrenar"
 								accept="image/png, .jpeg, .jpg"
-								required
 							/>
 						</div>
 						<div class="col-12">
 							<label for="upload-img">
 								<img
-									id="img-aranea"
 									class="img-6"
+									id="img-aranea"
 									src="{% static './assets/img/upload-img.png'%}"
 								/>
 							</label>
@@ -56,8 +53,8 @@
 				<div class="modal-footer">
 					<button
 						type="button"
-						class="btn bg-gradient-secondary"
 						data-bs-dismiss="modal"
+						class="btn bg-gradient-secondary"
 					>
 						Cerrar
 					</button>
