@@ -15,6 +15,27 @@ def prueba(request):
 
 
 def home(request):
+    if request.method == 'POST' and request.FILES['archivo_simular']:
+        myfile = request.FILES['archivo_simular']
+        fs = FileSystemStorage()
+        filename = fs.save('static/assets/utils/' + myfile.name, myfile)
+        uploaded_file_url = fs.url(filename)
+
+        # VARIABLESS GLOBALES
+        global entrenar, arañas, img
+        img = uploaded_file_url
+
+        # LEER DATOS
+        functs = functions()
+        (flag_data, entradas, arañas, bases_radiales, pesos) = functs.leer_datos_simulacion(uploaded_file_url)
+
+        # SIMULACION
+        simulacion = neuron(entradas, None, bases_radiales)
+        (salida) = simulacion.Simulacion(pesos)
+
+        # CARGAR PLANTILLA
+        return render(request, 'pages/home.html', {'uri': salida, 'title': 'Imagen cargada'})
+
     return render(request, 'pages/home.html')
 
 def entrenamiento(request):
@@ -47,7 +68,7 @@ def guardar_entranmiento(request):
         arañas.append([entrenar.Salidas[len(entrenar.Salidas)-1, 0], request.POST.get('title'), request.POST.get('desc'), img])
         
         functs = functions()
-        functs.guardar_resultados(arañas, entrenar.Entradas, entrenar.Salidas, entrenar.interp, len(entrenar.Entradas[0]))
+        functs.guardar_resultados(arañas, entrenar.Entradas, entrenar.Salidas, entrenar.BasesRadiales, entrenar.interp, len(entrenar.Entradas[0]))
         return render(request, 'pages/guardar.html', {'state': True, 'messege': 'Se guardo'})
 
     return render(request, 'pages/guardar.html', {'state': False, 'messege': 'No se guardo'})

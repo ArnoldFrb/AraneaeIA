@@ -118,6 +118,7 @@ class functions:
 
         matriz_base_radiales = None
         neuronas = len(array_img)
+        pesos = None
         arañas = []
 
         if os.path.exists(ruta_arc):
@@ -136,7 +137,7 @@ class functions:
             salidas.append([len(salidas) + 1])
 
             arañas = pd.read_excel(ruta_arc, sheet_name='Araneae').to_numpy().tolist()
-            neuronas = pd.read_excel(ruta_arc, sheet_name='Config').to_numpy()[0][0]
+            pesos = pd.read_excel(ruta_arc, sheet_name='Pesos').to_numpy()
             matriz_base_radiales = self.generar_bases_radiales(np.array(entradas).min(), np.array(entradas).max(), neuronas, len(entradas[0]))
 
         else:
@@ -144,12 +145,35 @@ class functions:
             salidas.append([1])
             matriz_base_radiales = self.generar_bases_radiales(np.array(entradas).min(), np.array(entradas).max(), neuronas, len(entradas[0]))
         
-        return (True, np.array(entradas), np.array(salidas), arañas, matriz_base_radiales, neuronas)
+        return (True, np.array(entradas), np.array(salidas), arañas, matriz_base_radiales, pesos)
 
-    def guardar_resultados(self, arañas, entradas, salidas, pesos, neuronas):
+    # METODO PARA LEER ARCHIVOS XLSX E INICIALIZAR LA CONFIGURACION DE LA NEURONA
+    def leer_datos_simulacion(self, ruta_img, ruta_arc = os.getcwd().replace(os.sep, '/')+'/AraneaeIA/src/data/Araneae.xlsx'):
+        img = imread(os.getcwd().replace(os.sep, '/')+ruta_img, as_gray=True)
+        if img.shape[1] < 800:
+            return (False, None, None, None)
+        a = img.shape[1]-800
+        img = crop(img, ((0, 0), (int(a/2), a - int(a/2))), copy=False)
+        array_img = np.apply_along_axis(sum, 0, img)
+
+        pesos = None
+        arañas = None
+        bases_radiales = None
+
+        if os.path.exists(ruta_arc):
+            arañas = pd.read_excel(ruta_arc, sheet_name='Araneae').to_numpy().tolist()
+            pesos = pd.read_excel(ruta_arc, sheet_name='Pesos').to_numpy()
+            bases_radiales = pd.read_excel(ruta_arc, sheet_name='Bases Radiales').to_numpy()
+
+            return (True, np.array([array_img]), arañas, bases_radiales, pesos)
+        
+        return (False, np.array([array_img]), arañas, bases_radiales, pesos)
+
+    def guardar_resultados(self, arañas, entradas, salidas, bases_radiales, pesos, neuronas):
         
         dfMatrix = pd.DataFrame(np.concatenate((np.array(entradas), np.array(salidas)), axis=1), columns=['X' + str(x+1) for x in range(len(entradas[0]))] + ['YD' + str(x+1) for x in range(len(salidas[0]))])
         dfArañas = pd.DataFrame(np.array(arañas), columns=['Codigo', 'title', 'desc', 'ruta'])
+        dfBasesRadiales = pd.DataFrame(bases_radiales, columns=['BR' + str(x+1) for x in range(len(bases_radiales[0]))])
         dfPesos = pd.DataFrame(pesos, columns=['Pesos'])
         dfConfig = pd.DataFrame([[neuronas]], columns=['Neuronas'])
 
@@ -162,6 +186,7 @@ class functions:
         with pd.ExcelWriter(os.getcwd().replace(os.sep, '/')+'/AraneaeIA/src/data/Araneae.xlsx') as writer: # pylint: disable=abstract-class-instantiated
             dfMatrix.to_excel(writer, sheet_name='Matriz', index=False)
             dfArañas.to_excel(writer, sheet_name='Araneae', index=False)
+            dfBasesRadiales.to_excel(writer, sheet_name='Bases Radiales', index=False)
             dfPesos.to_excel(writer, sheet_name='Pesos', index=False)
             dfConfig.to_excel(writer, sheet_name='Config', index=False)
             
