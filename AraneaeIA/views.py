@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 from AraneaeIA.src.core.functions import functions
-from AraneaeIA.src.core.neuron import neuron
+from AraneaeIA.src.core.Neuron import neuron
 
 entrenar = None
 arañas = None
@@ -15,8 +15,7 @@ def prueba(request):
 
 
 def home(request):
-    
-    return render(request, 'pages/home.html', {'uri': True, 'title': 'Imagen cargada'})
+    return render(request, 'pages/home.html')
 
 def entrenamiento(request):
     # CARGAR IMAGEN
