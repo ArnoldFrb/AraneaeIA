@@ -18,7 +18,15 @@
 					recientemente con software de autoedición, como por ejemplo Aldus
 					PageMaker, el cual incluye versiones de Lorem Ipsum.
 				</p>
-				<button type="button" class="btn bg-gradient-primary">Entrenar</button>
+				<button
+					type="button"
+					data-bs-toggle="modal"
+					class="btn bg-gradient-primary"
+					data-bs-target="#modalEntrenar"
+				>
+					Entrenar
+				</button>
+				{% include 'components/card-entrenar.html' %} {{ uri }}
 			</div>
 		</div>
 	</div>
