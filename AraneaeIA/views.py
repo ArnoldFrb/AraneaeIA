@@ -7,17 +7,29 @@ from AraneaeIA.src.core.neuron import neuron
 global functs
 global entrenar
 
+
+def prueba(request):
+    if request.POST.get('archivo'):
+        return render(request, 'pages/home.html', {'uri': request.POST['archivo']})
+    return render(request, 'pages/home.html')
+
+
 def home(request):
     if request.method == 'POST' and request.FILES['archivo']:
         myfile = request.FILES['archivo']
         fs = FileSystemStorage()
         filename = fs.save('static/assets/utils/' + myfile.name, myfile)
         uploaded_file_url = fs.url(filename)
+
+        # LEER DATOS
         functs = functions()
         (flag_data, entradas, salidas, arañas, bases_radiales, neuronas) = functs.leer_datos(uploaded_file_url)
         
+        # REALIZAR ENTRENAMIENTO
         entrenar = neuron(entradas, salidas, bases_radiales)
         (flag_entramiento, entrenamiento, errores) = entrenar.Entrenar()
+
+        # CARGAR PLANTILLA
         return render(request, 'pages/home.html', {'uri': bases_radiales})
 
         
@@ -28,4 +40,3 @@ def entrenamiento(request):
         return render(request, 'pages/home.html', {'uri': request.POST['archivo']})
 
     return render(request, 'pages/entrenar.html', {'uri': ''})
-
