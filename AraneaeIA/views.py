@@ -2,8 +2,10 @@ from django.shortcuts import render
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 from AraneaeIA.src.core.functions import functions
+from AraneaeIA.src.core.neuron import neuron
 
 global functs
+global entrenar
 
 
 def prueba(request):
@@ -18,14 +20,22 @@ def home(request):
         fs = FileSystemStorage()
         filename = fs.save('static/assets/utils/' + myfile.name, myfile)
         uploaded_file_url = fs.url(filename)
-        return render(request, 'pages/home.html', {'uri': uploaded_file_url, 'title': 'Imagen cargada'})
-        # functs = functions()
-        # (flag, ruta_img, entradas, salidas, arañas, basesRadiales, funcionActivacion, neuronas, error) = functs.leer_datos(img)
 
-    return render(request, 'pages/home.html')
+        # LEER DATOS
+        functs = functions()
+        (flag_data, entradas, salidas, arañas, bases_radiales, neuronas) = functs.leer_datos(uploaded_file_url)
+        
+        # REALIZAR ENTRENAMIENTO
+        entrenar = neuron(entradas, salidas, bases_radiales)
+        (flag_entramiento, entrenamiento, errores) = entrenar.Entrenar()
 
+        # CARGAR PLANTILLA
+        return render(request, 'pages/home.html', {'uri': bases_radiales, 'title': 'Imagen cargada'})
 
-def entrenar(request):
+        
+    return render(request, 'pages/home.html', {'uri': None})
+
+def entrenamiento(request):
     if request.POST.get('archivo'):
         return render(request, 'pages/home.html', {'uri': request.POST['archivo']})
 

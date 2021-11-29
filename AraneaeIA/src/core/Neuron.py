@@ -1,21 +1,19 @@
 from numpy import linalg, append, ones
-from pandas.core.frame import DataFrame
-from Funtions import Funtions
-import tkinter as tk
-import tkinter.ttk as ttk
+from AraneaeIA.src.core.functions import functions
 
-class Neuron:
+class neuron:
 
     # CONSTRUCTOR
-    def __init__(self, ejercicio, entradas, salidas, basesRadiales):
-        self.functions = Funtions()
-        self.Ejercicio = ejercicio
+    def __init__(self, entradas, salidas, basesRadiales):
+        self.functions = functions()
         self.Entradas = entradas
         self.Salidas = salidas
         self.BasesRadiales = basesRadiales
         self.vsErrores = []
 
-    def Entrenar(self, error_maximo, funcionActivacion):
+    def Entrenar(self):
+        funcion_activacion = 'BASERADIAL'
+        error_maximo = 0.001
 
         # CALCULO DE LA DISTANCIA EUCLIDIANA
         distanciasEuclidianas = []
@@ -23,7 +21,7 @@ class Neuron:
             distanciasEuclidianas.append(self.functions.DistanciaEuclidiana(entradas, self.BasesRadiales))
 
         # CALCULO DE LA FUNCION DE ACTIVACION
-        fa = self.functions.FuncionActivacion(funcionActivacion, distanciasEuclidianas)
+        fa = self.functions.FuncionActivacion(funcion_activacion, distanciasEuclidianas)
         
         # MATRIZ DE INTERPOLACION
         matriz = append(ones((len(fa), 1)), fa, axis=1)
@@ -36,9 +34,9 @@ class Neuron:
         (errorLineal, entrenamiento) = self.functions.ErrorLineal(self.Salidas, salidas)
 
         # ERROR GENERAL DEL ENTRANMIENTO
-        errorGeneral = self.functions.ErrorG(errorLineal)
+        error_general = self.functions.ErrorG(errorLineal)
 
         # MATRIZ DE SALIDAS YD & YR
-        self.vsErrores.append([error_maximo, errorGeneral])
+        self.vsErrores.append([error_maximo, error_general])
 
-        return (errorGeneral <= error_maximo, entrenamiento, self.vsErrores, matriz, errorGeneral)
+        return (error_general <= error_maximo, entrenamiento, self.vsErrores)

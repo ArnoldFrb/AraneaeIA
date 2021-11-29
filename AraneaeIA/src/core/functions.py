@@ -106,7 +106,7 @@ class functions:
 
     # METODO PARA LEER ARCHIVOS XLSX E INICIALIZAR LA CONFIGURACION DE LA NEURONA
     def leer_datos(self, ruta_img, ruta_arc = os.getcwd().replace(os.sep, '/')+'/AraneaeIA/src/data/Araneae.xlsx'):
-        img = imread(ruta_img, as_gray=True)
+        img = imread(os.getcwd().replace(os.sep, '/')+ruta_img, as_gray=True)
         if img.shape[1] < 800:
             return (False, None, None, None, None, None, None, None, None)
         a = img.shape[1]-800
@@ -116,11 +116,9 @@ class functions:
         entradas = []
         salidas = []
 
-        matrizBaseRadiales = []
-        funcionActivacion = 'BASERADIAL'
+        matriz_base_radiales = None
         neuronas = len(array_img)
-        error = 0.001
-        arañas = []
+        arañas = None
 
         ruta_img = [ruta_img, os.path.basename(os.path.splitext(ruta_img)[0]), os.path.basename(os.path.splitext(ruta_img)[1])]
 
@@ -139,17 +137,15 @@ class functions:
             entradas.append(array_img)
             salidas.append([len(salidas) + 1])
 
-            matrizBaseRadiales = pd.read_excel(ruta_arc, sheet_name='Bases Radiales').to_numpy()
+            matriz_base_radiales = pd.read_excel(ruta_arc, sheet_name='Bases Radiales').to_numpy()
             arañas = pd.read_excel(ruta_arc, sheet_name='Araneae').to_numpy().tolist()
-            funcionActivacion = pd.read_excel(ruta_arc, sheet_name='Config').to_numpy()[0][0]
             neuronas = pd.read_excel(ruta_arc, sheet_name='Config').to_numpy()[0][2]
-            error = pd.read_excel(ruta_arc, sheet_name='Config').to_numpy()[0][1]
 
         else:
             entradas.append(array_img)
             salidas.append([1])
         
-        return (True, ruta_img, np.array(entradas), np.array(salidas), arañas, matrizBaseRadiales, funcionActivacion, neuronas, error)
+        return (True, np.array(entradas), np.array(salidas), arañas, matriz_base_radiales, neuronas)
 
     def GuardarResultados(self, arañas, entradas, salidas, basesRadiales, pesos, funcionSalida, error, neuronas):
         
