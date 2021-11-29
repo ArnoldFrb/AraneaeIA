@@ -1,5 +1,8 @@
+{% extends "components/shared/modal.html" %}
+{% block id %}modalIdentificar{% endblock %} 
+{% block title %}Cargar imagen{% endblock %} 
+{% block content %} 
 {% load static %}
-
 <style>
 	.hidden {
 		display: none;
@@ -8,69 +11,37 @@
 		width: 100%;
 	}
 </style>
-<form class="text-center" action="/" method="POST" enctype="multipart/form-data">
+<form
+	id="form-simulacion"
+	class="text-center"
+	action="/"
+	method="POST"
+	enctype="multipart/form-data"
+>
 	{% csrf_token %}
-	<div
-		class="modal fade"
-		id="modalIdentificar"
-		tabindex="-1"
-		role="dialog"
-		aria-labelledby="exampleModalLabel"
-		aria-hidden="true"
-	>
-		<div class="modal-dialog modal-dialog-centered" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Carga de imagen</h5>
-					<button
-						type="button"
-						class="btn-close"
-						data-bs-dismiss="modal"
-						aria-label="Close"
-					>
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<div class="row">
-						<div class="col-12">
-							<input
-								type="file"
-								name="archivo"
-								class="hidden"
-								id="upload-img"
-								accept="image/png, .jpeg, .jpg"
-								required
-							/>
-						</div>
-						<div class="col-12">
-							<label for="upload-img">
-								<img
-									id="img-aranea"
-									class="img-6"
-									src="{% static './assets/img/upload-img.png'%}"
-								/>
-							</label>
-						</div>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<button
-						type="button"
-						class="btn bg-gradient-secondary"
-						data-bs-dismiss="modal"
-					>
-						Cerrar
-					</button>
-					<button type="submit" class="btn bg-gradient-primary">
-						Continuar
-					</button>
-				</div>
-			</div>
+	<div class="row">
+		<div class="col-12">
+			<input
+				required
+				type="file"
+				name="archivo"
+				class="hidden"
+				id="upload-img"
+				accept="image/png, .jpeg, .jpg"
+			/>
+		</div>
+		<div class="col-12">
+			<label for="upload-img">
+				<img
+					id="img-aranea"
+					class="img-6"
+					src="{% static './assets/img/upload-img.png'%}"
+				/>
+			</label>
 		</div>
 	</div>
+	<input id="submit-img-simulacion" class="hidden" type="submit" />
 </form>
-
 <script>
 	$("#upload-img").change(function (e) {
 		let reader = new FileReader();
@@ -80,3 +51,11 @@
 		};
 	});
 </script>
+{% endblock %} {% block footer %}
+<button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">
+	Cerrar
+</button>
+<label for="submit-img-simulacion">
+	<a class="btn bg-gradient-primary">Continuar</a>
+</label>
+{% endblock %}

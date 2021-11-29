@@ -14,6 +14,10 @@ def prueba(request):
 
 
 def home(request):
+    
+    return render(request, 'pages/home.html', {'uri': True, 'title': 'Imagen cargada'})
+
+def entrenamiento(request):
     # CARGAR IMAGEN
     if request.method == 'POST' and request.FILES['archivo']:
         myfile = request.FILES['archivo']
@@ -32,18 +36,10 @@ def home(request):
         (flag_entramiento, entrenamiento, errores) = entrenar.Entrenar()
 
         # CARGAR PLANTILLA
-        return render(request, 'pages/home.html', {'uri': entrenamiento})
+        return render(request, 'pages/entrenar.html', {'uri': entrenamiento, 'title': 'Imagen cargada'})
 
-        
-    return render(request, 'pages/home.html', {'uri': None})
-
-def entrenamiento(request):
-    if request.POST.get('archivo'):
-        return render(request, 'pages/home.html', {'uri': request.POST['archivo']})
-
-    return render(request, 'pages/entrenar.html', {'uri': ''})
+    return render(request, 'pages/entrenar.html', {'uri': None})
 
 # BUTTONS
-
 def guardar_entranmiento():
     print(entrenar.entradas)
