@@ -14,8 +14,7 @@ def prueba(request):
 
 
 def home(request):
-    
-    return render(request, 'pages/home.html', {'uri': True, 'title': 'Imagen cargada'})
+    return render(request, 'pages/home.html')
 
 def entrenamiento(request):
     # CARGAR IMAGEN
@@ -38,7 +37,7 @@ def entrenamiento(request):
         # CARGAR PLANTILLA
         return render(request, 'pages/entrenar.html', {'uri': entrenamiento, 'title': 'Imagen cargada'})
 
-    return render(request, 'pages/entrenar.html', {'uri': None})
+    return render(request, 'pages/entrenar.html')
 
 # BUTTONS
 def guardar_entranmiento():
