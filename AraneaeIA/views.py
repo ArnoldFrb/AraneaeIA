@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 from AraneaeIA.src.core.functions import functions
-from AraneaeIA.src.core.neuron import neuron
+from AraneaeIA.src.core.Neuron import neuron
 
 global functs
 global entrenar
@@ -33,7 +33,7 @@ def home(request):
         return render(request, 'pages/home.html', {'uri': bases_radiales, 'title': 'Imagen cargada'})
 
         
-    return render(request, 'pages/home.html', {'uri': None})
+    return render(request, 'pages/home.html')
 
 def entrenamiento(request):
     if request.POST.get('archivo'):
