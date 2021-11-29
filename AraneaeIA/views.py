@@ -31,21 +31,20 @@ def entrenamiento(request):
         # LEER DATOS
         functs = functions()
         (flag_data, entradas, salidas, arañas, bases_radiales, neuronas) = functs.leer_datos(uploaded_file_url)
-        
-        # REALIZAR ENTRENAMIENTO
+
         entrenar = neuron(entradas, salidas, bases_radiales)
         (flag_entramiento, entrenamiento, errores) = entrenar.Entrenar()
 
         # CARGAR PLANTILLA
         return render(request, 'pages/entrenar.html', {'uri': entrenamiento, 'title': 'Imagen cargada'})
 
-    return render(request, 'pages/entrenar.html', {'uri': None, 'title': 'Imagen cargada'})
+    return render(request, 'pages/entrenar.html')
 
 # BUTTONS
 def guardar_entranmiento(request):
     if request.method == 'POST':
         
-        arañas.append([entrenar.Salidas[len(entrenar.Salidas)-1, 0], request.POST.get('title'), request.POST.get('title'), img])
+        arañas.append([entrenar.Salidas[len(entrenar.Salidas)-1, 0], request.POST.get('title'), request.POST.get('desc'), img])
         
         functs = functions()
         functs.guardar_resultados(arañas, entrenar.Entradas, entrenar.Salidas, entrenar.interp, len(entrenar.Entradas[0]))
