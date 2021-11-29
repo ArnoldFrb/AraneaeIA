@@ -108,7 +108,7 @@ class functions:
     def leer_datos(self, ruta_img, ruta_arc = os.getcwd().replace(os.sep, '/')+'/AraneaeIA/src/data/Araneae.xlsx'):
         img = imread(os.getcwd().replace(os.sep, '/')+ruta_img, as_gray=True)
         if img.shape[1] < 800:
-            return (False, None, None, None, None, None, None, None, None)
+            return (False, None, None, None, None, None)
         a = img.shape[1]-800
         img = crop(img, ((0, 0), (int(a/2), a - int(a/2))), copy=False)
         array_img = np.apply_along_axis(sum, 0, img)
@@ -120,8 +120,6 @@ class functions:
         neuronas = len(array_img)
         arañas = []
 
-        ruta_img = [ruta_img, os.path.basename(os.path.splitext(ruta_img)[0]), os.path.basename(os.path.splitext(ruta_img)[1])]
-
         if os.path.exists(ruta_arc):
             matriz = pd.read_excel(ruta_arc, sheet_name='Matriz')
             aux_salidas = np.array([[row[len(matriz.columns) - 1]] for row in matriz.to_numpy()])
@@ -132,13 +130,13 @@ class functions:
                 salidas.append(s)
 
             if array_img in np.array(entradas):                
-                return (False, None, None, None, None, None, None, None, None)
+                return (False, None, None, None, None, None)
 
             entradas.append(array_img)
             salidas.append([len(salidas) + 1])
 
             arañas = pd.read_excel(ruta_arc, sheet_name='Araneae').to_numpy().tolist()
-            neuronas = pd.read_excel(ruta_arc, sheet_name='Config').to_numpy()[0][2]
+            neuronas = pd.read_excel(ruta_arc, sheet_name='Config').to_numpy()[0][0]
             matriz_base_radiales = self.generar_bases_radiales(np.array(entradas).min(), np.array(entradas).max(), neuronas, len(entradas[0]))
 
         else:
