@@ -1,5 +1,14 @@
-{% extends "index.html" %} {% block title %}AraneaeIA - Home{% endblock %}
+{% extends "index.html" %} 
+{% block title %}AraneaeIA - Home{% endblock %} 
 {% block content %}
+<style>
+	.hidden {
+		display: none;
+	}
+	.img-p-6 {
+		height: 200px;
+	}
+</style>
 <div class="container">
 	<div class="row text-center py-3 mt-3">
 		<div class="col-12 mx-auto">
@@ -26,8 +35,10 @@
 				>
 					Identificar una araña
 				</button>
-				{% include 'components/card-simulacion.html' %} 
-				{{uri}}
+				{% include 'components/card-simulacion.html' %}
+				<hr />
+				<p>{{ title }}</p>
+				<img class="img-p-6" src="{{uri}}" />
 			</div>
 		</div>
 	</div>

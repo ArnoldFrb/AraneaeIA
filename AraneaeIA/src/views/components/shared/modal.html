@@ -21,39 +21,8 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<div class="modal-body">
-				<div class="row">
-					<div class="col-12">
-						<input
-							required
-							type="file"
-							name="archivo"
-							class="hidden"
-							id="upload-img"
-							accept="image/png, .jpeg, .jpg"
-						/>
-					</div>
-					<div class="col-12">
-						<label for="upload-img">
-							<img
-								id="img-aranea"
-								class="img-6"
-								src="{% static './assets/img/upload-img.png'%}"
-							/>
-						</label>
-					</div>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button
-					type="button"
-					class="btn bg-gradient-secondary"
-					data-bs-dismiss="modal"
-				>
-					Cerrar
-				</button>
-				<button type="submit" class="btn bg-gradient-primary">Continuar</button>
-			</div>
+			<div class="modal-body">{% block content %}{% endblock %}</div>
+			<div class="modal-footer">{% block footer %}{% endblock %}</div>
 		</div>
 	</div>
 </div>

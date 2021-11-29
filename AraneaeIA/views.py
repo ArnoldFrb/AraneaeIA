@@ -18,11 +18,11 @@ def home(request):
         fs = FileSystemStorage()
         filename = fs.save('static/assets/utils/' + myfile.name, myfile)
         uploaded_file_url = fs.url(filename)
-        return render(request, 'pages/home.html', {'uri': uploaded_file_url})
+        return render(request, 'pages/home.html', {'uri': uploaded_file_url, 'title': 'Imagen cargada'})
         # functs = functions()
         # (flag, ruta_img, entradas, salidas, arañas, basesRadiales, funcionActivacion, neuronas, error) = functs.leer_datos(img)
 
-    return render(request, 'pages/home.html', {'uri': None})
+    return render(request, 'pages/home.html')
 
 
 def entrenar(request):
