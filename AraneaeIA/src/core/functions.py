@@ -14,7 +14,7 @@ class functions:
         pass
 
     # METODO PARA BASES RADIALES
-    def GenerarBasesRadiales(self, min, max, row, col):
+    def generar_bases_radiales(self, min, max, row, col):
         return np.random.uniform(min, max, [row, col])
 
     # MEDOTO PARA OBTENER LA DISTABCIA EUCLIDIANA
@@ -137,23 +137,23 @@ class functions:
             entradas.append(array_img)
             salidas.append([len(salidas) + 1])
 
-            matriz_base_radiales = pd.read_excel(ruta_arc, sheet_name='Bases Radiales').to_numpy()
             arañas = pd.read_excel(ruta_arc, sheet_name='Araneae').to_numpy().tolist()
             neuronas = pd.read_excel(ruta_arc, sheet_name='Config').to_numpy()[0][2]
+            matriz_base_radiales = self.generar_bases_radiales(np.array(entradas).min(), np.array(entradas).max(), neuronas, len(entradas[0]))
 
         else:
             entradas.append(array_img)
             salidas.append([1])
+            matriz_base_radiales = self.generar_bases_radiales(np.array(entradas).min(), np.array(entradas).max(), neuronas, len(entradas[0]))
         
         return (True, np.array(entradas), np.array(salidas), arañas, matriz_base_radiales, neuronas)
 
-    def GuardarResultados(self, arañas, entradas, salidas, basesRadiales, pesos, funcionSalida, error, neuronas):
+    def guardar_resultados(self, arañas, entradas, salidas, pesos, neuronas):
         
         dfMatrix = pd.DataFrame(np.concatenate((np.array(entradas), np.array(salidas)), axis=1), columns=['X' + str(x+1) for x in range(len(entradas[0]))] + ['YD' + str(x+1) for x in range(len(salidas[0]))])
         dfArañas = pd.DataFrame(np.array(arañas), columns=['Codigo', 'Aranea', 'ruta'])
         dfPesos = pd.DataFrame(pesos, columns=['Pesos'])
-        dfBasesRadiales = pd.DataFrame(basesRadiales, columns=['BR' + str(x+1) for x in range(len(basesRadiales[0]))])
-        dfConfig = pd.DataFrame([[funcionSalida, error, neuronas]], columns=['Func Activacion', 'Error Maximo', 'Neuronas'])
+        dfConfig = pd.DataFrame([[neuronas]], columns=['Neuronas'])
 
         try:
             os.mkdir('src/data')
@@ -164,7 +164,6 @@ class functions:
         with pd.ExcelWriter('src/data/Araneae.xlsx') as writer: # pylint: disable=abstract-class-instantiated
             dfMatrix.to_excel(writer, sheet_name='Matriz', index=False)
             dfArañas.to_excel(writer, sheet_name='Araneae', index=False)
-            dfBasesRadiales.to_excel(writer, sheet_name='Bases Radiales', index=False)
             dfPesos.to_excel(writer, sheet_name='Pesos', index=False)
             dfConfig.to_excel(writer, sheet_name='Config', index=False)
             

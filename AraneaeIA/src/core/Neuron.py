@@ -40,3 +40,23 @@ class neuron:
         self.vsErrores.append([error_maximo, error_general])
 
         return (error_general <= error_maximo, entrenamiento, self.vsErrores)
+
+    def Simulacion(self, pesos):
+        funcion_activacion = 'BASERADIAL'
+        error_maximo = 0.001
+
+        # CALCULO DE LA DISTANCIA EUCLIDIANA
+        distanciasEuclidianas = []
+        for entradas in self.Entradas:
+            distanciasEuclidianas.append(self.functions.DistanciaEuclidiana(entradas, self.BasesRadiales))
+
+        # CALCULO DE LA FUNCION DE ACTIVACION
+        fa = self.functions.FuncionActivacion(funcion_activacion, distanciasEuclidianas)
+        
+        # MATRIZ DE INTERPOLACION
+        matriz = append(ones((len(fa), 1)), fa, axis=1)
+        
+        # ECUACION DE BASE RADIAL
+        salidas = self.functions.EcuacionBaseRadial(matriz, pesos)
+
+        return salidas
