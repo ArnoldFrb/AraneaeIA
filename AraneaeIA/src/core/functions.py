@@ -118,7 +118,7 @@ class functions:
 
         matriz_base_radiales = None
         neuronas = len(array_img)
-        arañas = None
+        arañas = []
 
         ruta_img = [ruta_img, os.path.basename(os.path.splitext(ruta_img)[0]), os.path.basename(os.path.splitext(ruta_img)[1])]
 
@@ -151,17 +151,17 @@ class functions:
     def guardar_resultados(self, arañas, entradas, salidas, pesos, neuronas):
         
         dfMatrix = pd.DataFrame(np.concatenate((np.array(entradas), np.array(salidas)), axis=1), columns=['X' + str(x+1) for x in range(len(entradas[0]))] + ['YD' + str(x+1) for x in range(len(salidas[0]))])
-        dfArañas = pd.DataFrame(np.array(arañas), columns=['Codigo', 'Aranea', 'ruta'])
+        dfArañas = pd.DataFrame(np.array(arañas), columns=['Codigo', 'title', 'desc', 'ruta'])
         dfPesos = pd.DataFrame(pesos, columns=['Pesos'])
         dfConfig = pd.DataFrame([[neuronas]], columns=['Neuronas'])
 
         try:
-            os.mkdir('src/data')
+            os.mkdir(os.getcwd().replace(os.sep, '/')+'/AraneaeIA/src/data')
         except OSError as e:
             if e.errno != errno.EEXIST:
                 raise
 
-        with pd.ExcelWriter('src/data/Araneae.xlsx') as writer: # pylint: disable=abstract-class-instantiated
+        with pd.ExcelWriter(os.getcwd().replace(os.sep, '/')+'/AraneaeIA/src/data/Araneae.xlsx') as writer: # pylint: disable=abstract-class-instantiated
             dfMatrix.to_excel(writer, sheet_name='Matriz', index=False)
             dfArañas.to_excel(writer, sheet_name='Araneae', index=False)
             dfPesos.to_excel(writer, sheet_name='Pesos', index=False)
