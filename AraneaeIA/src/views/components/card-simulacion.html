@@ -1,0 +1,82 @@
+{% load static %}
+
+<style>
+	.hidden {
+		display: none;
+	}
+	.img-6 {
+		width: 100%;
+	}
+</style>
+<form class="text-center" action="/" method="POST">{% csrf_token %}
+	<div
+		class="modal fade"
+		id="modalIdentificar"
+		tabindex="-1"
+		role="dialog"
+		aria-labelledby="exampleModalLabel"
+		aria-hidden="true"
+	>
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Carga de imagen</h5>
+					<button
+						type="button"
+						class="btn-close"
+						data-bs-dismiss="modal"
+						aria-label="Close"
+					>
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-12">
+							<input
+								type="file"
+								name="archivo"
+								class="hidden"
+								id="upload-img"
+								accept="image/png, .jpeg, .jpg"
+							/>
+						</div>
+						<div class="col-12">
+							<label for="upload-img">
+								<img
+									id="img-aranea"
+									class="img-6"
+									src="{% static './assets/img/upload-img.png'%}"
+								/>
+							</label>
+						</div>
+						<div id=""><h1>Cambiar imagen</h1></div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button
+						type="button"
+						class="btn bg-gradient-secondary"
+						data-bs-dismiss="modal"
+					>
+						Cerrar
+					</button>
+					<button type="submit" class="btn bg-gradient-primary">
+						Continuar
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+<script>
+	document.getElementById("upload-img").onchange = function (e) {
+		let reader = new FileReader();
+		reader.readAsDataURL(e.target.files[0]);
+		reader.onload = function () {
+			let preview = document.getElementById("img-aranea");
+			preview.setAttribute("src", reader.result);
+		};
+	};
+</script>
