@@ -1,11 +1,28 @@
-{% extends "index.html" %} 
-{% block title %}AraneaeIA - Guardar{% endblock %} 
+{% extends "index.html" %} {% block title %}AraneaeIA - Guardar{% endblock %} 
 {% block content %}
-<form id="form-simulacion" class="text-center" action="/guardar" method="POST">
-    {% csrf_token %}
-    <input id="submit-img-simulacion" class="hidden" type="text" name="title" />
-    <input id="submit-img-simulacion" class="hidden" type="text" name="desc" />
-    <input id="submit-img-simulacion" class="hidden" type="submit" />
-    {{messege}}
-</form>
+
+<div class="container">
+    <div class="row text-center py-3 mt-3">
+	<form
+		class="text-center"
+		action="/guardar"
+		method="POST"
+		id="form-simulacion"
+	>
+		{% csrf_token %}
+        <div class="input-group input-group-outline my-3">
+            <label class="form-label">Nombre</label>
+            <input type="text" class="form-control" name="title" >
+        </div>
+        <div class="input-group input-group-outline my-3">
+            <label class="form-label">Descripción</label>
+            <textarea rows="10" cols="50" class="form-control" name="desc" ></textarea>
+        </div>
+		<button type="submit" class="btn bg-gradient-primary">Guardar</button>
+        <hr />
+        {{messege}}
+	</form>
+    </div>
+</div>
+
 {% endblock %}
