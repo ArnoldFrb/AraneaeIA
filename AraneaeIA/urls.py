@@ -17,13 +17,14 @@ from django.contrib import admin
 from django.urls import path
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
-from AraneaeIA.views import guardar_entranmiento, home, entrenamiento
+from AraneaeIA.views import guardar_entranmiento, home, entrenamiento, prueba
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home),
     path('entrenar', entrenamiento),
     path('guardar', guardar_entranmiento),
+    path('prueba', prueba),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

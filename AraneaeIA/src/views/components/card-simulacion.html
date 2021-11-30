@@ -1,62 +1,40 @@
-{% extends "components/shared/modal.html" %}
+{% extends "components/shared/modal.html" %} 
 {% block id %}modalIdentificar{% endblock %} 
 {% block title %}Cargar imagen{% endblock %} 
 {% block content %} 
 {% load static %}
-<style>
-	.hidden {
-		display: none;
-	}
-	.img-6 {
-		width: 100%;
-	}
-</style>
-<form
-	id="form-simulacion"
-	class="text-center"
-	action="/"
-	method="POST"
-	enctype="multipart/form-data"
->
+<form id="form-simulacion" class="text-center" method="POST">
 	{% csrf_token %}
 	<div class="row">
 		<div class="col-12">
 			<input
 				required
 				type="file"
-				name="archivo_simular"
 				class="hidden"
 				id="upload-img"
+				name="archivo_simular"
 				accept="image/png, .jpeg, .jpg"
 			/>
 		</div>
 		<div class="col-12">
 			<label for="upload-img">
 				<img
-					id="img-aranea"
 					class="img-6"
+					id="render-img"
 					src="{% static './assets/img/upload-img.png'%}"
 				/>
 			</label>
 		</div>
 	</div>
-	<input id="submit-img-simulacion" class="hidden" type="submit" />
+	<input id="submit-img-simulacion" class="hidden" />
 </form>
-<script>
-	$("#upload-img").change(function (e) {
-		let reader = new FileReader();
-		reader.readAsDataURL(e.target.files[0]);
-		reader.onload = function () {
-			$("#img-aranea").attr("src", reader.result);
-		};
-	});
-</script>
-{% endblock %} 
+{% endblock %}
 {% block footer %}
 <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">
 	Cerrar
 </button>
 <label for="submit-img-simulacion">
-	<a class="btn bg-gradient-primary">Continuar</a>
+	<a class="btn bg-gradient-primary" onclick="simulacion()">Continuar</a>
 </label>
+{{ prueba}} 
 {% endblock %}

@@ -1,5 +1,8 @@
 from django.shortcuts import render
 from django.conf import settings
+from django.template import context
+from django.http import JsonResponse
+import json
 from django.core.files.storage import FileSystemStorage
 from AraneaeIA.src.core.functions import functions
 from AraneaeIA.src.core.Neuron import neuron
@@ -8,13 +11,7 @@ entrenar = None
 arañas = None
 img = None
 
-def prueba(request):
-    if request.POST.get('archivo_simular'):
-        return render(request, 'pages/home.html', {'uri': request.POST['archivo_simular']})
-    return render(request, 'pages/home.html')
-
-
-def home(request):
+def simulacion(request):
     if request.method == 'POST' and request.FILES['archivo_simular']:
         myfile = request.FILES['archivo_simular']
         fs = FileSystemStorage()
@@ -34,8 +31,11 @@ def home(request):
         (salida) = simulacion.Simulacion(pesos)
 
         # CARGAR PLANTILLA
-        return render(request, 'pages/home.html', {'uri': salida, 'title': 'Imagen cargada'})
+        return JsonResponse({'uri': salida, 'title': 'Imagen cargada'})
+    
 
+
+def home(request):
     return render(request, 'pages/home.html')
 
 def entrenamiento(request):
