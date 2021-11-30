@@ -1,39 +1,40 @@
 {% extends "index.html" %} 
 {% block title %}AraneaeIA - Home{% endblock %} 
-{% block content %}
+{% block content %} 
+{% load static %}
 <div class="container">
-	<div class="row text-center py-3 mt-3">
+	<div class="row text-center">
 		<div class="col-12 mx-auto">
-			<div class="py-3 mt-3">
-				<h2>¿Que es AraneaeIA?</h2>
-				<p>
-					Lorem Ipsum es simplemente el texto de relleno de las imprentas y
-					archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de
-					las industrias desde el año 1500, cuando un impresor (N. del T.
-					persona que se dedica a la imprenta) desconocido usó una galería de
-					textos y los mezcló de tal manera que logró hacer un libro de textos
-					especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como
-					texto de relleno en documentos electrónicos, quedando esencialmente
-					igual al original. Fue popularizado en los 60s con la creación de las
-					hojas "Letraset", las cuales contenian pasajes de Lorem Ipsum, y más
-					recientemente con software de autoedición, como por ejemplo Aldus
-					PageMaker, el cual incluye versiones de Lorem Ipsum.
-				</p>
-				<button
-					type="button"
-					class="btn bg-gradient-primary"
-					data-bs-toggle="modal"
-					data-bs-target="#modalIdentificar"
-				>
-					Identificar una araña
-				</button>
-				{% include 'components/card-simulacion.html' %}
+			<form id="form-simulacion" class="text-center" method="POST">{% csrf_token %}
+				<input
+					required
+					type="file"
+					class="hidden"
+					id="upload-img"
+					name="archivo_simular"
+					accept="image/png, .jpeg, .jpg"
+				/>
+			</form>
+			<div class="card">
+				<div class="card-header">
+					Identifica una araña en linea
+				  </div>
+				<label for="upload-img" class='mt-3'>
+					<img
+						class="img-6"
+						id="render-img"
+						src="{% static './assets/img/upload-img.png'%}"
+					/>
+				</label>
 				<hr />
-				<p>{{ title }}</p>
-				<p>{{ name }}</p>
-				<p>{{ desc }}</p>
-				<img class="img-p-6" src="{{uri}}" />
+				<div class="card-body">
+					<p class="card-text">En este espacio puedes cargar la imagen de la araña a identificar, debes de tener en cuenta que la imagene debe tener proporciones minimas de 800 x 800 pixeles</p>
+					<button class="btn btn-primary " onclick="simulacion()">
+						Identificar
+					</button>
+				</div>
 			</div>
+			<div class='mt-3' id="response"></div>
 		</div>
 	</div>
 </div>

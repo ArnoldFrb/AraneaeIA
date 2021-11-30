@@ -107,7 +107,7 @@ class functions:
     def leer_datos(self, ruta_img, ruta_arc = os.getcwd().replace(os.sep, '/')+'/AraneaeIA/src/data/Araneae.xlsx'):
         img = imread(os.getcwd().replace(os.sep, '/')+ruta_img, as_gray=True)
         if img.shape[1] < 800:
-            return (False, None, None, None, None)
+            return (False, None, None, None, None, None)
         a = img.shape[1]-800
         img = crop(img, ((0, 0), (int(a/2), a - int(a/2))), copy=False)
         array_img = np.apply_along_axis(sum, 0, img)
@@ -130,7 +130,7 @@ class functions:
                 salidas.append(s)
 
             if array_img in np.array(entradas):                
-                return (False, None, None, None, None)
+                return (False, None, None, None, None, None)
 
             entradas.append(array_img)
             salidas.append([len(salidas) + 1])
@@ -151,7 +151,7 @@ class functions:
     def leer_datos_simulacion(self, ruta_img, ruta_arc = os.getcwd().replace(os.sep, '/')+'/AraneaeIA/src/data/Araneae.xlsx'):
         img = imread(os.getcwd().replace(os.sep, '/')+ruta_img, as_gray=True)
         if img.shape[1] < 800:
-            return (False, None, None, None)
+            return (False, None, None, None, None)
         a = img.shape[1]-800
         img = crop(img, ((0, 0), (int(a/2), a - int(a/2))), copy=False)
         array_img = np.apply_along_axis(sum, 0, img)

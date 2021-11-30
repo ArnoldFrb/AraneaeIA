@@ -14,6 +14,7 @@ arañas = None
 img = None
 vs_errores = None
 
+
 def simulacion(request):
     if request.method == 'POST' and request.FILES['archivo_simular']:
         myfile = request.FILES['archivo_simular']
@@ -28,7 +29,8 @@ def simulacion(request):
         # LEER DATOS
         functs = functions()
 
-        (flag_data, entradas, arañas, bases_radiales, pesos) = functs.leer_datos_simulacion(uploaded_file_url)
+        (flag_data, entradas, arañas, bases_radiales,
+         pesos) = functs.leer_datos_simulacion(uploaded_file_url)
 
         if flag_data:
             # SIMULACION
@@ -45,13 +47,14 @@ def simulacion(request):
             return JsonResponse({'title': salida[0], 'name': arañas[ind][1], 'desc': arañas[ind][2], 'uri': arañas[ind][3]})
         else:
             # CARGAR PLANTILLA
-            return JsonResponse({'message': 'La imagen no cumple con los parametros de simulacion.', 'title': 'No se pudo cargar la imagen' })
-    
+            return JsonResponse({'message': 'La imagen no cumple con los parametros de simulacion.', 'title': 'No se pudo cargar la imagen'})
+
 
 def home(request):
     return render(request, 'pages/home.html')
 
-def entrenamiento(request):
+
+def entrenar(request):
     # CARGAR IMAGEN
     if request.method == 'POST' and request.FILES['archivo_entrenar']:
         myfile = request.FILES['archivo_entrenar']
@@ -60,7 +63,7 @@ def entrenamiento(request):
         uploaded_file_url = fs.url(filename)
 
         # VARIABLESS GLOBALES
-        global entrenar, arañas, vs_errores, img 
+        global entrenar, arañas, vs_errores, img
         img = uploaded_file_url
 
         # LEER DATOS
@@ -72,29 +75,31 @@ def entrenamiento(request):
             (flag_entramiento, entrenamiento, errores) = entrenar.Entrenar()
 
             vs_errores.append(errores)
-            
+
             if flag_entramiento:
                 # CARGAR PLANTILLA
-                return render(request, 'pages/entrenar.html', {'uri': uploaded_file_url, 'entrenamiento': entrenamiento, 'errores': vs_errores, 'messege': 'Entrenamiento exitoso.'})
+                return JsonResponse({'uri': uploaded_file_url, 'entrenamiento': entrenamiento, 'errores': vs_errores, 'messege': 'Entrenamiento exitoso.'})
             else:
                 # CARGAR PLANTILLA
-                return render(request, 'pages/entrenar.html', {'messege': 'Fallo el entrenamiento', 'title': 'Error en el entrenamiento.'})
+                return JsonResponse({'messege': 'Fallo el entrenamiento', 'title': 'Error en el entrenamiento.'})
         else:
             # CARGAR PLANTILLA
-            return render(request, 'pages/entrenar.html', {'title': 'Error al cargar la imagen.', 'messege': 'La imagen no cumple con los parametros de simulacion o ya ha sido entrenada.'})
+            return JsonResponse({'title': 'Error al cargar la imagen.', 'messege': 'La imagen no cumple con los parametros de simulacion o ya ha sido entrenada.'})
 
+def ayudanos(request):
     return render(request, 'pages/entrenar.html')
 
 # BUTTONS
+
+
 def guardar_entranmiento(request):
     if request.method == 'POST':
         ruta_img = os.getcwd().replace(os.sep, '/') + img
         x = img.split("/")
         nueva_ruta = move(ruta_img, 'static/assets/images/'+x[len(x)-1])
-        arañas.append([entrenar.Salidas[len(entrenar.Salidas)-1, 0], request.POST.get('title'), request.POST.get('desc'), nueva_ruta])
-        
+        arañas.append([entrenar.Salidas[len(entrenar.Salidas)-1, 0],request.POST['title'], request.POST['desc'], nueva_ruta])
         functs = functions()
-        functs.guardar_resultados(arañas, entrenar.Entradas, entrenar.Salidas, entrenar.BasesRadiales, entrenar.interp, vs_errores)
-        return render(request, 'pages/guardar.html', {'state': True, 'messege': 'Se guardo'})
+        functs.guardar_resultados(arañas, entrenar.Entradas, entrenar.Salidas,entrenar.BasesRadiales, entrenar.interp, vs_errores)
+        return JsonResponse({'state': True, 'messege': 'Se guardo'})
 
-    return render(request, 'pages/guardar.html', {'state': False, 'uri': img, 'messege': 'No se guardo'})
+    return JsonResponse({'state': False,'messege': 'No se guardo'})
