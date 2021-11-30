@@ -9,7 +9,6 @@ class neuron:
         self.Entradas = entradas
         self.Salidas = salidas
         self.BasesRadiales = basesRadiales
-        self.vsErrores = []
 
     def Entrenar(self):
         funcion_activacion = 'BASERADIAL'
@@ -37,13 +36,12 @@ class neuron:
         error_general = self.functions.ErrorG(errorLineal)
 
         # MATRIZ DE SALIDAS YD & YR
-        self.vsErrores.append([error_maximo, error_general])
+        self.vs_errores = [error_maximo, error_general]
 
-        return (error_general <= error_maximo, entrenamiento, self.vsErrores)
+        return (error_general <= error_maximo, entrenamiento, self.vs_errores)
 
     def Simulacion(self, pesos):
         funcion_activacion = 'BASERADIAL'
-        error_maximo = 0.001
 
         # CALCULO DE LA DISTANCIA EUCLIDIANA
         distanciasEuclidianas = []
