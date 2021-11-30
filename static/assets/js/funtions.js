@@ -43,26 +43,34 @@ function entrenamiento() {
     }).then(function (response) {
         return response.json()
     }).then(function (data) {
-        div.innerHTML =
-            '<div class="card">' +
-            '<div class="card-header">Guardar entrenamiento</div>' +
-            '<div class="card-body">' +
-            '<div class="mb-3 row">' +
-            '<label for="staticEmail" class="col-sm-2 col-form-label">Nombre</label>' +
-            '<div class="col-sm-10">' +
-            '<input type="text" class="form-control" name="title">' +
-            '</div>' +
-            '</div>' +
-            '<div class="mb-3 row">' +
-            '<label for="inputPassword" class="col-sm-2 col-form-label">Descripción</label>' +
-            '<div class="col-sm-10">' +
-            '<textarea rows="10" cols="50" class="form-control" name="desc"></textarea>' +
-            '</div>' +
-            '</div>' +
-            '<button type="button" class="btn btn-primary " onclick="guardar()">Guardar</button>' +
-            '</div>' +
-            '</div>' +
-            '<div class="mt-3" id="response-guardar"></div>'
+        if (data.status && data.status === true) {
+            div.innerHTML =
+                '<div class="card">' +
+                '<div class="card-header">Guardar entrenamiento</div>' +
+                '<div class="card-body">' +
+                '<div class="mb-3 row">' +
+                '<label for="staticEmail" class="col-sm-2 col-form-label">Nombre</label>' +
+                '<div class="col-sm-10">' +
+                '<input type="text" class="form-control" name="title">' +
+                '</div>' +
+                '</div>' +
+                '<div class="mb-3 row">' +
+                '<label for="inputPassword" class="col-sm-2 col-form-label">Descripción</label>' +
+                '<div class="col-sm-10">' +
+                '<textarea rows="10" cols="50" class="form-control" name="desc"></textarea>' +
+                '</div>' +
+                '</div>' +
+                '<button type="button" class="btn btn-primary " onclick="guardar()">Guardar</button>' +
+                '</div>' +
+                '</div>' +
+                '<div class="mt-3" id="response-guardar"></div>'
+        } else {
+            div.innerHTML =
+                '<div class="alert alert-danger" role="alert">' +
+                data.title + ': ' + data.messege +
+                '</div>'
+        }
+
     })
 }
 
@@ -86,7 +94,7 @@ function guardar() {
     }).then(function (response) {
         return response.json()
     }).then(function (data) {
-        if (data.state && data.state == true) {
+        if (data.state && data.state === true) {
             div.innerHTML =
                 '<div class="alert alert-success" role="alert">' +
                 data.messege +

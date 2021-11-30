@@ -78,13 +78,13 @@ def entrenar(request):
 
             if flag_entramiento:
                 # CARGAR PLANTILLA
-                return JsonResponse({'uri': uploaded_file_url, 'entrenamiento': entrenamiento, 'errores': vs_errores, 'messege': 'Entrenamiento exitoso.'})
+                return JsonResponse({'status':True,'uri': uploaded_file_url, 'entrenamiento': entrenamiento, 'errores': vs_errores, 'messege': 'Entrenamiento exitoso.'})
             else:
                 # CARGAR PLANTILLA
-                return JsonResponse({'messege': 'Fallo el entrenamiento', 'title': 'Error en el entrenamiento.'})
+                return JsonResponse({'status':False,'messege': 'Fallo el entrenamiento', 'title': 'Error en el entrenamiento.'})
         else:
             # CARGAR PLANTILLA
-            return JsonResponse({'title': 'Error al cargar la imagen.', 'messege': 'La imagen no cumple con los parametros de simulacion o ya ha sido entrenada.'})
+            return JsonResponse({'status':False,'title': 'Error al cargar la imagen.', 'messege': 'La imagen no cumple con los parametros de simulacion o ya ha sido entrenada.'})
 
 def ayudanos(request):
     return render(request, 'pages/entrenar.html')
@@ -101,5 +101,4 @@ def guardar_entranmiento(request):
         functs = functions()
         functs.guardar_resultados(arañas, entrenar.Entradas, entrenar.Salidas,entrenar.BasesRadiales, entrenar.interp, vs_errores)
         return JsonResponse({'state': True, 'messege': 'Se guardo'})
-
     return JsonResponse({'state': False,'messege': 'No se guardo'})
