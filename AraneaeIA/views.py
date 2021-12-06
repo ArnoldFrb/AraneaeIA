@@ -76,9 +76,11 @@ def entrenar(request):
 
             vs_errores.append(errores)
 
+            nombre_aranas = list(set([i[1] for i in arañas]))
+
             if flag_entramiento:
                 # CARGAR PLANTILLA
-                return JsonResponse({'status':True,'uri': uploaded_file_url, 'entrenamiento': entrenamiento, 'errores': vs_errores, 'messege': 'Entrenamiento exitoso.'})
+                return JsonResponse({'status':True,'uri': uploaded_file_url, 'entrenamiento': entrenamiento, 'errores': vs_errores, 'numero_aranas': len(nombre_aranas), 'messege': 'Entrenamiento exitoso.'})
             else:
                 # CARGAR PLANTILLA
                 return JsonResponse({'status':False,'messege': 'Fallo el entrenamiento', 'title': 'Error en el entrenamiento.'})
