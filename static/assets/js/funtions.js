@@ -45,6 +45,9 @@ function entrenamiento() {
     }).then(function (data) {
         if (data.status && data.status === true) {
             div.innerHTML =
+                '<figure class="highcharts-figure">' +
+                '<div id="grafica-error"></div>' +
+                '</figure>' +
                 '<div class="card">' +
                 '<div class="card-header">Guardar entrenamiento</div>' +
                 '<div class="card-body">' +
@@ -64,6 +67,35 @@ function entrenamiento() {
                 '</div>' +
                 '</div>' +
                 '<div class="mt-3" id="response-guardar"></div>'
+            console.log(data.errores)
+            Highcharts.chart('grafica-error', {
+                title: { text: 'Grafica del error de aproximación por iteración' },
+                yAxis: { title: { text: 'Valor' } },
+                xAxis: { accessibility: { rangeDescription: 'Iteracion' } },
+                legend: { layout: 'vertical', align: 'right', verticalAlign: 'middle' },
+                plotOptions: {
+                    series: { label: { connectorAllowed: false }, pointStart: 1 }
+                },
+                series: [{
+                    name: 'Error optimo',
+                    data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175]
+                }, {
+                    name: 'Error general',
+                    data: [123412, 52503, 121234, 69658, 23453, 453456, 137133, 154175]
+                }],
+                responsive: {
+                    rules: [{
+                        condition: { maxWidth: 500 },
+                        chartOptions: {
+                            legend: {
+                                layout: 'horizontal',
+                                align: 'center',
+                                verticalAlign: 'bottom'
+                            }
+                        }
+                    }]
+                }
+            })
         } else {
             div.innerHTML =
                 '<div class="alert alert-danger" role="alert">' +

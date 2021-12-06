@@ -29,8 +29,7 @@ def simulacion(request):
         # LEER DATOS
         functs = functions()
 
-        (flag_data, entradas, arañas, bases_radiales,
-         pesos) = functs.leer_datos_simulacion(uploaded_file_url)
+        (flag_data, entradas, arañas, bases_radiales, pesos) = functs.leer_datos_simulacion(uploaded_file_url)
 
         if flag_data:
             # SIMULACION
@@ -102,3 +101,6 @@ def guardar_entranmiento(request):
         functs.guardar_resultados(arañas, entrenar.Entradas, entrenar.Salidas,entrenar.BasesRadiales, entrenar.interp, vs_errores)
         return JsonResponse({'state': True, 'messege': 'Se guardo'})
     return JsonResponse({'state': False,'messege': 'No se guardo'})
+
+def prueba(request):
+    return render(request, 'pages/prueba.html')
