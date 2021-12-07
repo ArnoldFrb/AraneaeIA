@@ -115,8 +115,8 @@ class functions:
         entradas = []
         salidas = []
 
-        matriz_base_radiales = None
-        vs_errores = None
+        matriz_base_radiales = []
+        vs_errores = []
         neuronas = len(array_img)
         arañas = []
 
