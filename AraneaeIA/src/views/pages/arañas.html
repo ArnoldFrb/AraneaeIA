@@ -1,68 +1,99 @@
-<h1>Quieres saber mas sobre las Arañas</h1>
-<p>
-    Es el grupo más abundante dentro de los 
-    arácnidos, está distribuido en todos los 
-    continentes exceptuando la Antártida. Son 
-    depredadoras y la mayoría posee glándulas del 
-    veneno. Ciertas arañas producen una estructura 
-    compuesta de hilos de seda a la que comúnmente 
-    conocemos como telaraña; su función puede 
-    variar según el comportamiento o el tipo de seda 
-    producida.
-</p>
-<h1>Anatomía externa</h1>
-<p>
-    El cuerpo de las arañas (Fig. 1) está dividido en dos partes unidas por un pedúnculo: la anterior, 
-    llamada cefalotórax o prosoma, y la posterior, conocida como abdomen u opistosoma. Todos los 
-    apéndices se insertan en el prosoma. El opistosoma alberga en su extremo posterior glándulas 
-    sericígenas (productoras de seda o tela) que se abren al exterior por las “hileras”. En la parte ventral y 
-    anterior del opistosoma de las hembras, se abren el poro genital (epigino) y por aberturas 
-    independientes, los “pulmones” o cavidades respiratorias.
-    Figura 1. Esquema de una araña generalizada. A. Vista dorsal; B. Vista lateral; C. Vista ventral. Se 
-    han omitido las patas, salvo sus bases (coxas).
-</p>
-<h1>Tipos de hilos</h1>
-<h1>¿Dónde podemos encontrar arañas?</h1>
-<p>
-        Existen más de 35.000 especies de arañas descriptas, distribuidas en todas las regiones geográficas del 
-    globo. El área de distribución de las arañas incluye a casi todos los ambientes, ya sean naturales o 
-    artificiales. De aquí, la importancia que adquiere para el ser humano el conocimiento sobre la vida de 
-    las arañas, la prevención y el tratamiento adecuado en caso de picadura o araneísmo.
-    Las arañas son terrestres, se encuentran diseminadas en casi todas las regiones de la tierra, 
-    excepto en las zonas polares. Se hallaron variedades en regiones montañosas a más de cuatro mil 
-    metros de altura; se cuentan entre los seres vivos registrados a mayores altitudes. Algunas arañas 
-    también viven normalmente en grietas de las rocas a la orilla del mar; con la marea alta estas rocas son 
-    cubiertas y quedan sumergidas durante algunas horas juntamente con las arañas que las habitan. 
-    Ciertas arañas llevan una existencia acuática que llena su nido subacuático con una burbuja de 
-    aire. Muchas viven a orillas de los arroyos, ríos y en zonas pantanosas, algunas de ellas nadan debajo 
-    del agua o caminan sobre las plantas sumergidas, y otras, de pequeño peso, pueden desplazarse por 
-    encima del agua. También pueden vivir en el follaje de los árboles. En el ámbito doméstico y 
-    ¿Cuánto tiempo 
-    viven las arañas?
-    ¿Dónde podemos 
-    encontrar arañas?
-    13
-    alrededor de éste (jardines, árboles, depósitos, detrás de cuadros, entre los libros, etc.) viven un 
-    número variable de arañas, algunas sumamente peligrosas.
-</p>
-<p>
-    <span>¿Sabías que...</span>
-    la seda dorada de la araña Nephila clavipes es utilizada para 
-    la elaboración de chalecos antibalas y prótesis médicas?
-</p>
-<p>
-    <span>¿Sabías que...</span>
-    uno de los síntomas de la picadura de la araña bananera 
--Phoneutria spp.- es una erección que puede durar hasta 4 horas?
-</p>
-<p>
-    <span>¿Sabías que...</span>
-    hay escorpiones que pueden durar hasta 48 horas bajo el agua 
-    sin asfixiarse?
-</p>
-<p>
-    <span>¿Sabías que...</span>
-    existen más de 30 películas inspiradas en los arácnidos, por 
-    ejemplo: El hombre araña, El rey escorpión, La telaraña de 
-    Charlotte y Aracnofobia?
-</p>
+{% load static %}
+<div class='row'>
+    <div class='col-12 text-center'>
+        <img class='py-5' src="{% static './assets/img/logo-landing.jpg'%}"/>
+    </div>
+    <div class='col-12 text-center mb-5'>
+        <a class="btn btn-primary" href='#onForm'>
+            Identificar una arañar
+        </a>
+    </div>
+    <div class='row col-12 gris py-5'>
+        <div class='col-6'>
+            <img class='fit-image sombras bordes' src="{% static './assets/img/araña-1.jpeg'%}"/>
+        </div>
+        <div class='col-6'>
+            <h3>¿Quieres saber mas sobre las Arañas?</h3>
+            <p class='py-5'>
+                Es el grupo más abundante dentro de los 
+                arácnidos, está distribuido en todos los 
+                continentes exceptuando la Antártida. Son 
+                depredadoras y la mayoría posee glándulas del 
+                veneno. Ciertas arañas producen una estructura 
+                compuesta de hilos de seda a la que comúnmente 
+                conocemos como telaraña; su función puede 
+                variar según el comportamiento o el tipo de seda 
+                producida.
+            </p>
+        </div>
+    </div>
+    <p class='text-center mt-5 cita'>
+        <span>¿Sabías que...</span>
+        la seda dorada de la araña Nephila clavipes es utilizada para 
+        la elaboración de chalecos antibalas y prótesis médicas?
+    </p>
+    <div class='row col-12 py-5'>
+        <div class='col-6'>
+            <h3 class='text-center'>Anatomía externa</h3>
+            <p>
+                El cuerpo de las arañas (Fig. 1) está dividido en dos partes unidas por un pedúnculo: la anterior, 
+                llamada cefalotórax o prosoma, y la posterior, conocida como abdomen u opistosoma. Todos los 
+                apéndices se insertan en el prosoma. El opistosoma alberga en su extremo posterior glándulas 
+                sericígenas (productoras de seda o tela) que se abren al exterior por las “hileras”. En la parte ventral y 
+                anterior del opistosoma de las hembras, se abren el poro genital (epigino) y por aberturas 
+                independientes, los “pulmones” o cavidades respiratorias.
+                Figura 1. Esquema de una araña generalizada. A. Vista dorsal; B. Vista lateral; C. Vista ventral. Se 
+                han omitido las patas, salvo sus bases (coxas).
+            </p>
+        </div>
+        <div class='col-6'>
+            <img class='fit-image sombras bordes' src="{% static './assets/img/anatomia.png'%}"/>
+        </div>
+    </div>
+    <p class='text-center mb-5 cita'>
+        <span>¿Sabías que...</span>
+        uno de los síntomas de la picadura de la araña bananera 
+        -Phoneutria spp.- es una erección que puede durar hasta 4 horas?
+    </p>
+    <div class='col-12 gris text-center'>
+        <div class='py-5'>
+            <img class='image-full sombras bordes' src="{% static './assets/img/hilos.png'%}"/>
+        </div>
+    </div>
+    <p class='text-center mt-5 cita'>
+        <span>¿Sabías que...</span>
+        hay escorpiones que pueden durar hasta 48 horas bajo el agua 
+        sin asfixiarse?
+    </p>
+    <div class='row col-12 py-5'>
+        <div class='col-12'>
+            <h3 class='text-center'>¿Dónde podemos encontrar arañas?</h3>
+            <p class='py-3'>
+            <img class='img-in-text bordes' src="{% static './assets/img/araña-2.jpg'%}"  hspace="5" vspace="5"/>
+            Existen más de 35.000 especies de arañas descriptas, distribuidas en todas las regiones geográficas del 
+            globo. El área de distribución de las arañas incluye a casi todos los ambientes, ya sean naturales o 
+            artificiales. De aquí, la importancia que adquiere para el ser humano el conocimiento sobre la vida de 
+            las arañas, la prevención y el tratamiento adecuado en caso de picadura o araneísmo.
+            Las arañas son terrestres, se encuentran diseminadas en casi todas las regiones de la tierra, 
+            excepto en las zonas polares. Se hallaron variedades en regiones montañosas a más de cuatro mil 
+            metros de altura; se cuentan entre los seres vivos registrados a mayores altitudes. Algunas arañas 
+            también viven normalmente en grietas de las rocas a la orilla del mar; con la marea alta estas rocas son 
+            cubiertas y quedan sumergidas durante algunas horas juntamente con las arañas que las habitan. 
+            Ciertas arañas llevan una existencia acuática que llena su nido subacuático con una burbuja de 
+            aire. Muchas viven a orillas de los arroyos, ríos y en zonas pantanosas, algunas de ellas nadan debajo 
+            del agua o caminan sobre las plantas sumergidas, y otras, de pequeño peso, pueden desplazarse por 
+            encima del agua. También pueden vivir en el follaje de los árboles. En el ámbito doméstico y 
+            ¿Cuánto tiempo viven las arañas? ¿Dónde podemos encontrar arañas? 13
+            alrededor de éste (jardines, árboles, depósitos, detrás de cuadros, entre los libros, etc.) viven un 
+            número variable de arañas, algunas sumamente peligrosas.
+            </p>
+        </div>
+    </div>
+    <p class='text-center mb-5 cita'>
+        <span>¿Sabías que...</span>
+        existen más de 30 películas inspiradas en los arácnidos, por 
+        ejemplo: El hombre araña, El rey escorpión, La telaraña de 
+        Charlotte y Aracnofobia?
+    </p>
+</div>
+<div id='onForm'></div>

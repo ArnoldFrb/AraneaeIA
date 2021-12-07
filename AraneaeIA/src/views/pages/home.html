@@ -3,7 +3,7 @@
 {% block content %} 
 {% load static %}
 <div class="container">
-	<div class="row text-center">
+	<div class="row">
 		<div class="col-12 mx-auto">
 			<form id="form-simulacion" class="text-center" method="POST">{% csrf_token %}
 				<input
@@ -15,8 +15,8 @@
 					accept="image/png, .jpeg, .jpg"
 				/>
 			</form>
-			<p>{% include 'text/araneae.html' %}</p>
-			<div class="card">
+			<p>{% include 'pages/arañas.html' %}</p>
+			<div class="card text-center">
 				<div class="card-header">
 					Identifica una araña en linea
 				  </div>
@@ -31,7 +31,7 @@
 				<div class="card-body">
 					<p class="card-text">En este espacio puedes cargar la imagen de la araña a identificar, debes de tener en cuenta que la imagene debe tener proporciones minimas de 800 x 800 pixeles</p>
 					<button class="btn btn-primary " onclick="simulacion()">
-						Identificar
+						Continuar
 					</button>
 				</div>
 			</div>
@@ -39,5 +39,4 @@
 		</div>
 	</div>
 </div>
-
 {% endblock %}

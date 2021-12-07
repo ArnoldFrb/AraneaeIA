@@ -45,6 +45,7 @@ function entrenamiento() {
     }).then(function (data) {
         if (data.status && data.status === true) {
             div.innerHTML =
+                '<div><p>Actualmente nuestra base de datos cuenta con ' + data.numero_aranas + ' arañas registrada, ¡Gracias por ayudarnos!</p></div>' +
                 '<figure class="highcharts-figure">' +
                 '<div id="grafica-error"></div>' +
                 '</figure>' +
@@ -67,7 +68,7 @@ function entrenamiento() {
                 '</div>' +
                 '</div>' +
                 '<div class="mt-3" id="response-guardar"></div>'
-            console.log(data.errores)
+
             Highcharts.chart('grafica-error', {
                 title: { text: 'Grafica del error de aproximación por iteración' },
                 yAxis: { title: { text: 'Valor' } },
@@ -78,10 +79,10 @@ function entrenamiento() {
                 },
                 series: [{
                     name: 'Error optimo',
-                    data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175]
+                    data: data.errores.map(row => row[0])
                 }, {
                     name: 'Error general',
-                    data: [123412, 52503, 121234, 69658, 23453, 453456, 137133, 154175]
+                    data: data.errores.map(row => row[1])
                 }],
                 responsive: {
                     rules: [{
@@ -145,8 +146,10 @@ function simulacion() {
     let div = document.getElementById('response')
 
     div.innerHTML =
+        "<div class='text-center'>" +
         '<div class="spinner-border text-success" style="width: 3rem; height: 3rem;" role="status">' +
         '<span class="visually-hidden">Cargando</span>' +
+        '</div>' +
         '</div>'
 
     let form = new FormData(document.getElementById('form-simulacion'))
@@ -162,6 +165,7 @@ function simulacion() {
         return response.json()
     }).then(function (data) {
         div.innerHTML =
+            "<div class='text-center'>" +
             '<div class="card">' +
             '<div class="card-header">' +
             '<h5>¿Esta es la arraña que estas buscando?</h5>' +
@@ -174,6 +178,7 @@ function simulacion() {
             '<div class="card-body">' +
             '<h5 class="card-title">Descripcion</h5>' +
             '<p class="card-text">' + data.desc + '</p>' +
+            '</div>' +
             '</div>' +
             '</div>'
     })

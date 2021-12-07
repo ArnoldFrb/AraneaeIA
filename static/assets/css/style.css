@@ -7,6 +7,55 @@
 	max-width: 300px;
 }
 
+.logo-header{
+  width: 100%;
+  max-width: 200px;
+}
+
+.fit-image{
+width: 100%;
+object-fit: cover;
+height: 300px;
+}
+
+.image-full{
+  width: 100%;
+}
+
+.img-in-text{
+  width: 40%;
+  float: left;
+}
+
+.cita{
+  font-size: larger;
+  font-style: italic;
+  
+}
+
+.cita span{
+  font-weight: bold;
+}
+
+.sombras{
+-webkit-box-shadow: 10px 10px 39px -15px rgba(0,0,0,0.75);
+-moz-box-shadow: 10px 10px 39px -15px rgba(0,0,0,0.75);
+box-shadow: 10px 10px 39px -15px rgba(0,0,0,0.75);
+}
+
+.bordes{
+  border-radius: 10px 10px 10px 10px;
+-moz-border-radius: 10px 10px 10px 10px;
+-webkit-border-radius: 10px 10px 10px 10px;
+}
+
+.parrafo-img{
+	overflow: auto;
+}
+.gris{
+  background-color:#f0f0f0;
+}
+
 .highcharts-figure,
 .highcharts-data-table table {
   	min-width: 360px;
